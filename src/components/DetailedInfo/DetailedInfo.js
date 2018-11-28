@@ -5,7 +5,7 @@ import './DetailedInfo.css';
 class DetailedInfo extends Component {
   render() {
     return (
-      <div>
+      <div className="detailed-info">
       	Подробная информация
         
       </div>

@@ -5,7 +5,7 @@ import './Filters.css';
 class Filters extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="filters">
         Фильтры
       </div>
     );

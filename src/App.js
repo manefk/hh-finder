@@ -6,25 +6,31 @@ import "./App.css";
 
 class App extends Component {
 	state = {
-		vacancies: {}
+		vacancies: [],
+		loading: false
 	};
 	componentDidMount() {
+		this.setState({
+			loading: true
+		})
 		fetch("https://api.hh.ru/vacancies").then(response => {
 			response.json().then(data => {
 				console.log(data);
 				this.setState({
-					vacancies: data
+					vacancies: data,
+					loading: false
 				});
 			});
 		});
 	}
 	render() {
-		const { vacancies } = this.state;
+		const { vacancies, loading } = this.state;
 
 		return (
 			<div className="App">
-				{vacancies.length == 0 ? <h1>Загрузка вакансий</h1> : <Vacancies vacancies={vacancies} />}
-				
+				{loading ? <h1>Загрузка вакансий</h1> 
+						 : <Vacancies vacancies={vacancies} />
+				}
 				<Filters />
 				<DetailedInfo />
 			</div>

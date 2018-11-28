@@ -3,11 +3,11 @@ import "./Vacancy.css";
 
 const Vacancy = ({ position, company, city, published }) => {
     return (
-      <div>
-          {position}<br/>
-          {company}<br/>
-          {city}<br/>
-          {published}<br/>
+      <div className="vacancy">
+          <b>{position}</b>
+          <p>{company}</p>
+          <p>{city}</p>
+          <p>{published}</p>
    
       </div>
     );

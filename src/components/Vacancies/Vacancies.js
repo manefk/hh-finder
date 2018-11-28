@@ -6,12 +6,12 @@ class Vacancies extends Component {
   render() {
   	const { vacancies } = this.props
  	return (
-      <div>
+      <div className="vacancies">
       	{
-      		vacancies.items && vacancies.items.map((vac, i) => {
+      		vacancies.items && vacancies.items.map(vac => {
       			return (
       				<Vacancy
-      					key={i}
+      					key={vac.id}
       					position={vac.name}
       					company = {vac.employer.name}
       					city = {vac.area.name}
