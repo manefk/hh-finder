@@ -4,7 +4,7 @@ import Vacancy from "./Vacancy/Vacancy"
 
 class Vacancies extends Component {
   render() {
-  	const { vacancies } = this.props
+  	const { vacancies, vacancyId, getVacancyId } = this.props
  	return (
       <div className="vacancies">
       	{
@@ -12,13 +12,14 @@ class Vacancies extends Component {
       			return (
       				<Vacancy
       					key={vac.id}
+                id={vac.id}
+                vacancyId = {vacancyId}
       					position={vac.name}
       					company = {vac.employer.name}
       					city = {vac.area.name}
       					published = {vac.published_at}
       					requirement = {vac.snippet.requirement}
-      			    getVacancyId = {this.props.getVacancyId}
-      					id={vac.id}
+      			    getVacancyId = {getVacancyId}
       				/>
       			)
       		})

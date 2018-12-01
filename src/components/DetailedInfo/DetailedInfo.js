@@ -27,16 +27,19 @@ const DetailedInfo = ({ vacancyInfo }) => {
 	const salary = vacancyInfo ? "Зарплата: " + getSalary() : ''
 	const company = vacancyInfo && vacancyInfo.employer.name
 	const requirement = vacancyInfo && vacancyInfo.snippet.requirement && "Требования: " + vacancyInfo.snippet.requirement
-	const responsibility = vacancyInfo && "Обязанности: " + vacancyInfo.snippet.responsibility
+	const responsibility = vacancyInfo && vacancyInfo.snippet.responsibility && "Обязанности: " + vacancyInfo.snippet.responsibility
 	const published = vacancyInfo && "Дата публикации: " + vacancyInfo.published_at
+
     return (
       <div className="detailed-info">
-     	<b>{position}</b>
-     	<p>{company}</p>
-     	<p>{salary}</p>
-     	<p>{requirement}</p>
-     	<p>{responsibility}</p>
-     	<p>{published}</p>
+      	<div className="detailed-info__content">
+	     	<b>{position}</b>
+	     	<p>{company}</p>
+	     	<p>{salary}</p>
+	     	<p>{requirement}</p>
+	     	<p>{responsibility}</p>
+	     	<p>{published}</p>
+     	</div>
 
   	  </div>
     );

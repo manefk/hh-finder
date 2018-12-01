@@ -4,9 +4,14 @@
 	background: #fff;
 	padding: 12px 12px 4px;
 	cursor:pointer;
+	border-left: 1px solid transparent;
+
 }
 
-
+.vacancy--active {
+	background: #f6f6f6;
+	border-left: 1px solid lightgrey;
+}
 .vacancy p {
 	margin: 8px 0;
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Vacancies from "./components/Vacancies/Vacancies";
 import Filters from "./components/Filters/Filters";
 import DetailedInfo from "./components/DetailedInfo/DetailedInfo";
+
 import "./App.css";
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
 		vacancyId: '',
 		townId:''
 	};
+
 	
 	getVacancies = () => {
 		const baseUrl = 'https://api.hh.ru/vacancies';
@@ -70,6 +72,8 @@ class App extends Component {
 
 	onKeySearch = e => this.setState({keyWord: e.target.value}, this.getVacancies)
 
+
+
 	render() {
 		const { vacancies, loading, vacancyInfo, vacancyId } = this.state;
 	
@@ -77,9 +81,12 @@ class App extends Component {
 			<div className="App">
 				<Filters onTownSearch={this.onTownSearch} onKeySearch={this.onKeySearch} onSalarySearch={this.onSalarySearch} />
 				{loading ? <h1>Загрузка вакансий</h1> 
-						 : <Vacancies vacancies={vacancies} getVacancyId = {this.getVacancyId} />
+						 : <React.Fragment>
+						 		<Vacancies vacancies={vacancies} getVacancyId = {this.getVacancyId} vacancyId = {vacancyId} />
+						 		<DetailedInfo vacancyInfo={vacancies.filter(vac => vac.id === vacancyId)[0]} />
+						 	</React.Fragment>
 				}
-				<DetailedInfo vacancyInfo={vacancies.filter(vac => vac.id === vacancyId)[0]} />
+				
 			</div>
 		);
 	}
