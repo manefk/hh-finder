@@ -19,7 +19,7 @@ class Filters extends Component {
       	<input className="filter-salary"
       		   type="search"
       		   placeholder="поиск по зарплате"
-      		   onChange = {this.props.onExperienceSearch}
+      		   onKeyPress = {this.props.onSalarySearch}
       		   />
         
       </div>

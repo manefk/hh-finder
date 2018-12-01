@@ -16,6 +16,9 @@ class Vacancies extends Component {
       					company = {vac.employer.name}
       					city = {vac.area.name}
       					published = {vac.published_at}
+      					requirement = {vac.snippet.requirement}
+      			    getVacancyId = {this.props.getVacancyId}
+      					id={vac.id}
       				/>
       			)
       		})
