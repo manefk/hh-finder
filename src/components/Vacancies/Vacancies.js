@@ -8,7 +8,7 @@ class Vacancies extends Component {
  	return (
       <div className="vacancies">
       	{
-      		vacancies.items && vacancies.items.map(vac => {
+      		 vacancies.map(vac => {
       			return (
       				<Vacancy
       					key={vac.id}
