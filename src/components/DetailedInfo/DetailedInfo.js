@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import moment from 'moment'
+import { formatSalary } from '../../utils/functions'
 import './DetailedInfo.css';
 
 const DetailedInfo = ({ vacancyInfo }) => {
@@ -24,11 +25,11 @@ const DetailedInfo = ({ vacancyInfo }) => {
 	}
 	
 	const position = vacancyInfo && vacancyInfo.name
-	const salary = vacancyInfo ? "Зарплата: " + getSalary() : ''
+	const salary = vacancyInfo ? "Зарплата: " + formatSalary(vacancyInfo.salary) : ''
 	const company = vacancyInfo && vacancyInfo.employer.name
 	const requirement = vacancyInfo && vacancyInfo.snippet.requirement && "Требования: " + vacancyInfo.snippet.requirement
 	const responsibility = vacancyInfo && vacancyInfo.snippet.responsibility && "Обязанности: " + vacancyInfo.snippet.responsibility
-	const published = vacancyInfo && "Дата публикации: " + vacancyInfo.published_at
+	const published = vacancyInfo && "Дата публикации: " + moment(vacancyInfo.published_at).format('MM-DD-YY HH:mm')
 
     return (
       <div className="detailed-info">
@@ -39,6 +40,7 @@ const DetailedInfo = ({ vacancyInfo }) => {
 	     	<p>{requirement}</p>
 	     	<p>{responsibility}</p>
 	     	<p>{published}</p>
+	     	
      	</div>
 
   	  </div>

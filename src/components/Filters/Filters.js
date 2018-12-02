@@ -8,17 +8,17 @@ class Filters extends Component {
       <div className="filters">
       	<input className="filter-town"
       		   type="search"
-      		   placeholder="поиск по городу"
+      		   placeholder="город"
       		   onKeyPress = {this.props.onTownSearch}
       		   />
       	<input className="filter-keys"
       		   type="search"
-      		   placeholder="поиск по ключевым словам"
+      		   placeholder="ключевые слова"
       		   onChange = {this.props.onKeySearch}
       		   />
       	<input className="filter-salary"
       		   type="search"
-      		   placeholder="поиск по зарплате"
+      		   placeholder="зарплата"
       		   onKeyPress = {this.props.onSalarySearch}
       		   />
         

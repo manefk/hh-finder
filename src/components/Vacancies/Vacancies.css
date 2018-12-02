@@ -1,4 +1,7 @@
 .vacancies {
+	max-width: 40%;
 	flex: 1 1 40%;
-	
+	overflow-y: scroll;
+	max-height: 90vh
+
 }

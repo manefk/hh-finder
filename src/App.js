@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Vacancies from "./components/Vacancies/Vacancies";
 import Filters from "./components/Filters/Filters";
 import DetailedInfo from "./components/DetailedInfo/DetailedInfo";
-
+import Moment from 'moment'
 import "./App.css";
 
 class App extends Component {
@@ -20,17 +20,23 @@ class App extends Component {
 	
 	getVacancies = () => {
 		const baseUrl = 'https://api.hh.ru/vacancies';
-		const areaURL = this.state.townId !== '' ? `?area=${this.state.townId}` : ''
-		const keyWordUrl = this.state.keyWord !== '' ? `?text=${this.state.keyWord}` : ''
-		const salaryUrl = this.state.salary !== '' ? `?salary=${this.state.salary}` : ''
+		if (this.state.townId) {
+			const keyWordUrl = this.state.keyWord ? `$text=${this.state.keyWord}` : ''
+		} else {
+			const keyWordUrl = this.state.keyWord ? `?text=${this.state.keyWord}` : ''
+		}
+		const areaUrl = this.state.townId ? `?area=${this.state.townId}` : ''
+		const keyWordUrl = this.state.keyWord ? `?text=${this.state.keyWord}` : ''
+		const salaryUrl = this.state.salary ? `?salary=${this.state.salary}&currency=RUR` : ''
 		this.setState({loading: true})
 		console.log(this.state.town)
-		fetch(baseUrl + areaURL).then(response => {
+		fetch(baseUrl).then(response => {
 			response.json().then(data => {
 		
 				this.setState({
 					vacancies: data.items,
 					loading: false,
+					vacancyId: ''
 
 				});
 			});
@@ -83,7 +89,9 @@ class App extends Component {
 				{loading ? <h1>Загрузка вакансий</h1> 
 						 : <React.Fragment>
 						 		<Vacancies vacancies={vacancies} getVacancyId = {this.getVacancyId} vacancyId = {vacancyId} />
-						 		<DetailedInfo vacancyInfo={vacancies.filter(vac => vac.id === vacancyId)[0]} />
+						 		{this.state.vacancyId ? <DetailedInfo vacancyInfo={vacancies.filter(vac => vac.id === vacancyId)[0]} />
+						 							  : null
+						 		}
 						 	</React.Fragment>
 				}
 				

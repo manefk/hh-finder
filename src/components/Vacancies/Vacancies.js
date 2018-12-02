@@ -12,14 +12,15 @@ class Vacancies extends Component {
       			return (
       				<Vacancy
       					key={vac.id}
-                id={vac.id}
-                vacancyId = {vacancyId}
+                id={vac.id}              
+                vacancyId = {vacancyId}  // айдишник вакансии в стейте, для стилизации активной вакансии
       					position={vac.name}
       					company = {vac.employer.name}
       					city = {vac.area.name}
       					published = {vac.published_at}
+                salary = {vac.salary}
       					requirement = {vac.snippet.requirement}
-      			    getVacancyId = {getVacancyId}
+      			    getVacancyId = {getVacancyId} // для записи в стейт айди активной вакансии
       				/>
       			)
       		})
