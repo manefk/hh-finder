@@ -17,18 +17,17 @@ const DetailedInfo = ({ vacancyInfo }) => {
 	const published = "Дата публикации: " + moment(vacancyInfo.published_at).format('MM-DD-YY HH:mm')
 
     return (
-      <div className="detailed-info">
-      	<div className="detailed-info__content">
-	     	<b>{position}</b>
-	     	<p>{company}</p>
-	     	<p>{salary}</p>
-	     	<p>{requirement}</p>
-	     	<p>{responsibility}</p>
-	     	<p>{address}</p>
-	     	<p>{published}</p>
+      <div className="detailed-info detailed-info-content">
+      	
+     	<b>{position}</b>
+     	<p>{company}</p>
+     	<p>{salary}</p>
+     	<p>{requirement}</p>
+     	<p>{responsibility}</p>
+     	<p>{address}</p>
+     	<p>{published}</p>
 	     	
-     	</div>
-
+     
   	  </div>
     );
   

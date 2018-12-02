@@ -14,22 +14,18 @@ class App extends Component {
 		keyWord: '',
 		salary:'',
 		vacancyId: '',
+		areas:[],
 		townId:''
 	};
 
 	
 	getVacancies = () => {
-		const baseUrl = 'https://api.hh.ru/vacancies';
-		if (this.state.townId) {
-			const keyWordUrl = this.state.keyWord ? `$text=${this.state.keyWord}` : ''
-		} else {
-			const keyWordUrl = this.state.keyWord ? `?text=${this.state.keyWord}` : ''
-		}
-		const areaUrl = this.state.townId ? `?area=${this.state.townId}` : ''
-		const keyWordUrl = this.state.keyWord ? `?text=${this.state.keyWord}` : ''
-		const salaryUrl = this.state.salary ? `?salary=${this.state.salary}&currency=RUR` : ''
+		const baseUrl = 'https://api.hh.ru/vacancies?';		 
+		const areaUrl = this.state.townId ? `area=${this.state.townId}&` : ''
+		const keyWordUrl = this.state.keyWord  ? `text=${this.state.keyWord}&` : ''
+		const salaryUrl = this.state.salary ? `salary=${this.state.salary}&currency=RUR` : ''
 		this.setState({loading: true})
-		fetch(baseUrl + areaUrl + keyWordUrl).then(response => {
+		fetch(baseUrl + areaUrl + keyWordUrl + salaryUrl).then(response => {
 			response.json().then(data => {
 		
 				this.setState({
@@ -44,33 +40,42 @@ class App extends Component {
 	getVacancyId = id => this.setState({vacancyId: id})
 
 	
-	getAreas = townName => {
+	onInputChange = (e, field) => {
+		this.setState({[field]: e.target.value})
+		if (field === 'town') {
+			this.setState({townId: findTownId(this.state.areas, e.target.value)})
+		}
+	}
+
+
+	getAreas = () => {
 		fetch('https://api.hh.ru/areas')
 			.then(response => response.json())
-			.then(response => this.setState({townId: findTownId(response, townName)}))
-			.then(this.getVacancies);
-		}
-	
+			.then(response => this.setState({areas: response}))
+	}
 
 	onInputSearch = (e, field) => {
 		if (e.key === 'Enter') {
-			field === 'town' ? this.setState({[field]: e.target.value}, () => this.getAreas(this.state.town))
-						     : this.setState({[field]: e.target.value}, this.getVacancies)
-			e.target.value = ''
+			this.getVacancies()
 		}
 	}
 
 	componentDidMount() {
 		this.setState({loading: true})
 		this.getVacancies()
+		this.getAreas()
 	}
 
 	render() {
-		const { vacancies, loading, vacancyInfo, vacancyId } = this.state;
+		const { vacancies, loading, vacancyInfo, vacancyId, town, keyWord, salary } = this.state;
 	
 		return (
 			<div className="App">
-				<Filters onInputSearch={this.onInputSearch}/>
+				<Filters onInputSearch={this.onInputSearch} 
+						 onInputChange={this.onInputChange} 
+						 town={town} keyWord={keyWord} 
+						 salary={salary} />
+
 				{loading ? <h1>Поиск вакансий</h1> 
 						 : <React.Fragment>
 						 		<Vacancies vacancies={vacancies} getVacancyId = {this.getVacancyId} vacancyId = {vacancyId} />

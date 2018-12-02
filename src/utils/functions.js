@@ -38,11 +38,6 @@ const findTownId = (response, townName) => {
 	return id
 }
 
-
-
-
-
-
 export {formatSalary, findTownId}
 
 

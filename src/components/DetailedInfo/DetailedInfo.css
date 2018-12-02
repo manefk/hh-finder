@@ -1,13 +1,13 @@
 .detailed-info {
-	flex: 1 1 58%;
-	margin-left: 3px;
+	flex: 1 1 60%;
+	
 }
 
-.detailed-info__content {
+.detailed-info-content {
 	color: #191919;
 	border-bottom: 1px solid lightgrey;
 	background: #fff;
 	padding: 12px 12px 4px;
-	height: 90vh;
+	height: calc(100% - 85px);
 	box-sizing: border-box;
 }
