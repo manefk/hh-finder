@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Vacancies from "./components/Vacancies/Vacancies";
 import Filters from "./components/Filters/Filters";
 import DetailedInfo from "./components/DetailedInfo/DetailedInfo";
-import Moment from 'moment'
+import { findTownId } from "./utils/functions"
 import "./App.css";
 
 class App extends Component {
@@ -29,8 +29,7 @@ class App extends Component {
 		const keyWordUrl = this.state.keyWord ? `?text=${this.state.keyWord}` : ''
 		const salaryUrl = this.state.salary ? `?salary=${this.state.salary}&currency=RUR` : ''
 		this.setState({loading: true})
-		console.log(this.state.town)
-		fetch(baseUrl).then(response => {
+		fetch(baseUrl + areaUrl + keyWordUrl).then(response => {
 			response.json().then(data => {
 		
 				this.setState({
@@ -48,45 +47,31 @@ class App extends Component {
 	getAreas = townName => {
 		fetch('https://api.hh.ru/areas')
 			.then(response => response.json())
-			.then(response =>  response[0].areas.forEach(region => {
-				region.areas.forEach(town => {
-					if(townName === town.name) {
-						this.setState({townId: town.id})
-
-					}
-				})
-			})).then(this.getVacancies);
+			.then(response => this.setState({townId: findTownId(response, townName)}))
+			.then(this.getVacancies);
 		}
+	
+
+	onInputSearch = (e, field) => {
+		if (e.key === 'Enter') {
+			field === 'town' ? this.setState({[field]: e.target.value}, () => this.getAreas(this.state.town))
+						     : this.setState({[field]: e.target.value}, this.getVacancies)
+			e.target.value = ''
+		}
+	}
+
 	componentDidMount() {
 		this.setState({loading: true})
 		this.getVacancies()
 	}
-
-	onTownSearch = e => {
-		if(e.key === 'Enter'){
-			this.setState({
-				town: e.target.value
-			}, () => this.getAreas(this.state.town))
-		};
-			
-	}
-	onSalarySearch = e => {
-		if(e.key === 'Enter') {
-			this.setState({salary: e.target.value}, this.getVacancies)
-		}
-	}
-
-	onKeySearch = e => this.setState({keyWord: e.target.value}, this.getVacancies)
-
-
 
 	render() {
 		const { vacancies, loading, vacancyInfo, vacancyId } = this.state;
 	
 		return (
 			<div className="App">
-				<Filters onTownSearch={this.onTownSearch} onKeySearch={this.onKeySearch} onSalarySearch={this.onSalarySearch} />
-				{loading ? <h1>Загрузка вакансий</h1> 
+				<Filters onInputSearch={this.onInputSearch}/>
+				{loading ? <h1>Поиск вакансий</h1> 
 						 : <React.Fragment>
 						 		<Vacancies vacancies={vacancies} getVacancyId = {this.getVacancyId} vacancyId = {vacancyId} />
 						 		{this.state.vacancyId ? <DetailedInfo vacancyInfo={vacancies.filter(vac => vac.id === vacancyId)[0]} />

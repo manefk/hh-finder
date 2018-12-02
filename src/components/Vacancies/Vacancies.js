@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import "./Vacancies.css";
 import Vacancy from "./Vacancy/Vacancy"
 
-class Vacancies extends Component {
-  render() {
-  	const { vacancies, vacancyId, getVacancyId } = this.props
+const Vacancies = ({ vacancies, vacancyId, getVacancyId }) => {
+  
  	return (
       <div className="vacancies">
       	{
+         
       		 vacancies.map(vac => {
       			return (
       				<Vacancy
@@ -27,7 +27,7 @@ class Vacancies extends Component {
       	}
       </div>
     );
-  }
+  
 }
 
 export default Vacancies;

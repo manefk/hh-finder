@@ -1,10 +1,8 @@
 .detailed-info {
 	flex: 1 1 58%;
 	margin-left: 3px;
-	
-	
-
 }
+
 .detailed-info__content {
 	color: #191919;
 	border-bottom: 1px solid lightgrey;
@@ -12,5 +10,4 @@
 	padding: 12px 12px 4px;
 	height: 90vh;
 	box-sizing: border-box;
-
 }
