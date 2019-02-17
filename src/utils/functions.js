@@ -17,25 +17,28 @@ const formatSalary = salary => {
 		return text
 	}
 
-const findTownId = (response, townName) => {
-	let id;
-	let found = false
-	let townLowerCase = townName.toLowerCase()
-	for (let i=0; i< response.length; i++) {
-		if (found === true) break
-		response[i].areas.forEach(region => {
-			if (townLowerCase === region.name.toLowerCase()) {
-				id = region.id;
-				found = true
-			}
-			region.areas.forEach(town => {
-				if(townLowerCase === town.name.toLowerCase()) {
-					id = town.id
-					found = true
-				}
-			})})
+const findTownId = (arrayList, name) => {
+
+	const findInEl = (el, name) => {
+		if (el.name.toLowerCase() === name.toLowerCase()) {
+			return el.id
+		}
+		return findInElArray(el.areas, name)
 	}
-	return id
+
+	const findInElArray = (arrayList, name) => {
+		if (arrayList.length === 0) { 
+			return false 
+		}
+		let attempt = findInEl(arrayList[0], name)
+		if (attempt) {
+			return attempt
+		} else {
+			return findInElArray(arrayList.slice(1), name)
+		}	
+	}
+	
+	return findInElArray(arrayList, name)
 }
 
 export {formatSalary, findTownId}
